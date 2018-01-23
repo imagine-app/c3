@@ -646,7 +646,7 @@ c3_axis_fn.init = function init() {
     $$.axes.y2 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY2
     // clip-path?
 	).attr("transform", $$.getTranslate('y2')).style("visibility", config.axis_y2_show ? 'visible' : 'hidden');
-		$$.axes.y3 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY3.attr("transform", $$.getTranslate('y3')).style("visibility", config.axis_y3_show ? 'visible' : 'hidden');
+		$$.axes.y3 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY3).attr("transform", $$.getTranslate('y3')).style("visibility", config.axis_y3_show ? 'visible' : 'hidden');
     $$.axes.y2.append("text").attr("class", CLASS.axisY2Label).attr("transform", config.axis_rotated ? "" : "rotate(-90)").style("text-anchor", this.textAnchorForY2AxisLabel.bind(this));
 		$$.axes.y3.append("text").attr("class", CLASS.axisY3Label).attr("transform", config.axis_rotated ? "" : "rotate(-90)").style("text-anchor", this.textAnchorForY3AxisLabel.bind(this));
 };
