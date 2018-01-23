@@ -128,6 +128,7 @@ c3_chart_internal_fn.initParams = function () {
     $$.xOrient = config.axis_rotated ? "left" : "bottom";
     $$.yOrient = config.axis_rotated ? (config.axis_y_inner ? "top" : "bottom") : (config.axis_y_inner ? "right" : "left");
     $$.y2Orient = config.axis_rotated ? (config.axis_y2_inner ? "bottom" : "top") : (config.axis_y2_inner ? "left" : "right");
+    $$.y3Orient = config.axis_rotated ? (config.axis_y3_inner ? "bottom" : "top") : (config.axis_y3_inner ? "left" : "right");
     $$.subXOrient = config.axis_rotated ? "left" : "bottom";
 
     $$.isLegendRight = config.legend_position === 'right';
@@ -141,7 +142,8 @@ c3_chart_internal_fn.initParams = function () {
     $$.currentMaxTickWidths = {
         x: 0,
         y: 0,
-        y2: 0
+        y2: 0,
+        y3: 0
     };
 
     $$.rotated_padding_left = 30;
@@ -218,9 +220,11 @@ c3_chart_internal_fn.initWithData = function (data) {
     $$.x.domain(d3.extent($$.getXDomain($$.data.targets)));
     $$.y.domain($$.getYDomain($$.data.targets, 'y'));
     $$.y2.domain($$.getYDomain($$.data.targets, 'y2'));
+    $$.y3.domain($$.getYDomain($$.data.targets, 'y3'));
     $$.subX.domain($$.x.domain());
     $$.subY.domain($$.y.domain());
     $$.subY2.domain($$.y2.domain());
+    $$.subY3.domain($$.y3.domain());
 
     // Save original x domain for zoom update
     $$.orgXDomain = $$.x.domain();
@@ -332,12 +336,14 @@ c3_chart_internal_fn.smoothLines = function (el, type) {
                 x1 = g.attr('x1'),
                 x2 = g.attr('x2'),
                 y1 = g.attr('y1'),
-                y2 = g.attr('y2');
+                y2 = g.attr('y2'),
+                y3 = g.attr('y3');
             g.attr({
                 'x1': Math.ceil(x1),
                 'x2': Math.ceil(x2),
                 'y1': Math.ceil(y1),
-                'y2': Math.ceil(y2)
+                'y2': Math.ceil(y2),
+                'y3': Math.ceil(y3)
             });
         });
     }
@@ -509,12 +515,16 @@ c3_chart_internal_fn.redraw = function (options, transitions) {
 
     $$.y.domain($$.getYDomain(targetsToShow, 'y', xDomainForZoom));
     $$.y2.domain($$.getYDomain(targetsToShow, 'y2', xDomainForZoom));
+    $$.y3.domain($$.getYDomain(targetsToShow, 'y3', xDomainForZoom));
 
     if (!config.axis_y_tick_values && config.axis_y_tick_count) {
         $$.yAxis.tickValues($$.axis.generateTickValues($$.y.domain(), config.axis_y_tick_count));
     }
     if (!config.axis_y2_tick_values && config.axis_y2_tick_count) {
         $$.y2Axis.tickValues($$.axis.generateTickValues($$.y2.domain(), config.axis_y2_tick_count));
+    }
+    if (!config.axis_y3_tick_values && config.axis_y3_tick_count) {
+        $$.y3Axis.tickValues($$.axis.generateTickValues($$.y3.domain(), config.axis_y3_tick_count));
     }
 
     // axes
@@ -554,6 +564,7 @@ c3_chart_internal_fn.redraw = function (options, transitions) {
     if (withY) {
         $$.subY.domain($$.getYDomain(targetsToShow, 'y'));
         $$.subY2.domain($$.getYDomain(targetsToShow, 'y2'));
+        $$.subY3.domain($$.getYDomain(targetsToShow, 'y3'));
     }
 
     // xgrid focus
@@ -756,6 +767,9 @@ c3_chart_internal_fn.getTranslate = function (target) {
     } else if (target === 'y2') {
         x = config.axis_rotated ? 0 : $$.width;
         y = config.axis_rotated ? 1 : 0;
+    } else if (target === 'y3') {
+        x = config.axis_rotated ? 0 : $$.width;
+        y = config.axis_rotated ? 1 : 0;
     } else if (target === 'subx') {
         x = 0;
         y = config.axis_rotated ? 0 : $$.height2;
@@ -803,7 +817,7 @@ c3_chart_internal_fn.subxx = function (d) {
 
 c3_chart_internal_fn.transformMain = function (withTransition, transitions) {
     var $$ = this,
-        xAxis, yAxis, y2Axis;
+        xAxis, yAxis, y2Axis, y3Axis ;
     if (transitions && transitions.axisX) {
         xAxis = transitions.axisX;
     } else {
@@ -822,10 +836,17 @@ c3_chart_internal_fn.transformMain = function (withTransition, transitions) {
         y2Axis = $$.main.select('.' + CLASS.axisY2);
         if (withTransition) { y2Axis = y2Axis.transition(); }
     }
+    if (transitions && transitions.axisY3) {
+        y3Axis = transitions.axisY3;
+    } else {
+        y3Axis = $$.main.select('.' + CLASS.axisY3);
+        if (withTransition) { y3Axis = y3Axis.transition(); }
+    }
     (withTransition ? $$.main.transition() : $$.main).attr("transform", $$.getTranslate('main'));
     xAxis.attr("transform", $$.getTranslate('x'));
     yAxis.attr("transform", $$.getTranslate('y'));
     y2Axis.attr("transform", $$.getTranslate('y2'));
+    y3Axis.attr("transform", $$.getTranslate('y3'));
     $$.main.select('.' + CLASS.chartArcs).attr("transform", $$.getTranslate('arc'));
 };
 c3_chart_internal_fn.transformAll = function (withTransition, transitions) {
@@ -872,6 +893,7 @@ c3_chart_internal_fn.updateDimension = function (withoutAxis) {
         } else {
             $$.axes.y.call($$.yAxis);
             $$.axes.y2.call($$.y2Axis);
+            $$.axes.y3.call($$.y3Axis);
         }
     }
     $$.updateSizes();
@@ -937,7 +959,7 @@ c3_chart_internal_fn.bindResize = function () {
     $$.resizeFunction.add(function () {
         config.onresized.call($$);
     });
-    
+
     var resizeIfElementDisplayed = function() {
         // if element not displayed skip it
         if (!$$.api.element.offsetParent) {
