@@ -645,7 +645,7 @@ c3_axis_fn.init = function init() {
 
     $$.axes.y2 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY2).attr("transform", $$.getTranslate('y2')).style("visibility", config.axis_y2_show ? 'visible' : 'hidden');
 		$$.axes.y2.append("text").attr("class", CLASS.axisY2Label).attr("transform", config.axis_rotated ? "" : "rotate(-90)").style("text-anchor", this.textAnchorForY2AxisLabel.bind(this));
-		$$.axes.y3 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY3).attr("transform", $$.getTranslate('y3')).style("visibility", config.axis_y3_show ? 'visible' : 'hidden');  
+		$$.axes.y3 = main.append("g").attr("class", CLASS.axis + ' ' + CLASS.axisY3).attr("transform", $$.getTranslate('y3')).style("visibility", config.axis_y3_show ? 'visible' : 'hidden');
 		$$.axes.y3.append("text").attr("class", CLASS.axisY3Label).attr("transform", config.axis_rotated ? "" : "rotate(-90)").style("text-anchor", this.textAnchorForY3AxisLabel.bind(this));
 };
 c3_axis_fn.getXAxis = function getXAxis(scale, orient, tickFormat, tickValues, withOuterTick, withoutTransition, withoutRotateTickText) {
@@ -6860,7 +6860,7 @@ c3_chart_internal_fn.redrawGrid = function (withTransition) {
         xv = $$.xv.bind($$),
         lines = $$.xgridLines.select('line'),
         texts = $$.xgridLines.select('text');
-    return [(withTransition ? lines.transition() : lines).attr("x1", config.axis_rotated ? 0 : xv).attr("x2", config.axis_rotated ? $$.width : xv).attr("y1", config.axis_rotated ? xv : 0).attr("y2", config.axis_rotated ? xv : $$.height).style("opacity", 1), (withTransition ? texts.transition() : texts).attr("x", config.axis_rotated ? $$.yGridTextX.bind($$) : $$.xGridTextX.bind($$)).attr("y", xv).text(function (d) {
+    return [(withTransition ? lines.transition() : lines).attr("x1", config.axis_rotated ? 0 : xv).attr("x2", config.axis_rotated ? $$.width : xv).attr("x3", config.axis_rotated ? $$.width : xv).attr("y1", config.axis_rotated ? xv : 0).attr("y2", config.axis_rotated ? xv : $$.height).attr("y3", config.axis_rotated ? xv : $$.height).style("opacity", 1), (withTransition ? texts.transition() : texts).attr("x", config.axis_rotated ? $$.yGridTextX.bind($$) : $$.xGridTextX.bind($$)).attr("y", xv).text(function (d) {
         return d.text;
     }).style("opacity", 1)];
 };
