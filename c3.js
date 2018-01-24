@@ -1969,7 +1969,7 @@ c3_chart_internal_fn.transformMain = function (withTransition, transitions) {
     xAxis.attr("transform", $$.getTranslate('x'));
     yAxis.attr("transform", $$.getTranslate('y'));
     y2Axis.attr("transform", $$.getTranslate('y2'));
-		y3Axis.attr("transform", $$.getTranslate('y3'));
+		//y3Axis.attr("transform", $$.getTranslate('y3'));
     $$.main.select('.' + CLASS.chartArcs).attr("transform", $$.getTranslate('arc'));
 };
 c3_chart_internal_fn.transformAll = function (withTransition, transitions) {
