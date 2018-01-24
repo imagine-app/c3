@@ -246,6 +246,7 @@ c3_axis_internal_fn.generateAxis = function () {
                     tickTransform = internal.axisX;
                     lineUpdate.attr("x1", tickX)
                         .attr("x2", tickX)
+                        .attr("x3", tickX)
                         .attr("y2", function (d, i) { return internal.lineY2(d, i); })
                         .attr("y3", function (d, i) { return internal.lineY3(d, i); });
                     textUpdate.attr("x", 0)
@@ -264,7 +265,7 @@ c3_axis_internal_fn.generateAxis = function () {
                     tickTransform = internal.axisX;
                     lineUpdate.attr("x2", 0)
                         .attr("y2", -internal.innerTickSize);
-                    lineUpdate.attr("x2", 0)
+                    lineUpdate.attr("x3", 0)
                         .attr("y3", -internal.innerTickSize);
                     textUpdate.attr("x", 0)
                         .attr("y", -internal.tickLength)
@@ -293,7 +294,8 @@ c3_axis_internal_fn.generateAxis = function () {
                 {
                     tickTransform = internal.axisY;
                     lineUpdate.attr("x2", internal.innerTickSize)
-                        .attr("y2", 0)
+                        .attr("y2", 0);
+                    lineUpdate.attr("x3", internal.innerTickSize)
                         .attr("y3", 0);
                     textUpdate.attr("x", internal.tickLength)
                         .attr("y", 0)
