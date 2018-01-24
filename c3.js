@@ -1420,12 +1420,14 @@ c3_chart_internal_fn.smoothLines = function (el, type) {
             var g = $$.d3.select(this),
                 x1 = g.attr('x1'),
                 x2 = g.attr('x2'),
+								x3 = g.attr('x3'),
                 y1 = g.attr('y1'),
                 y2 = g.attr('y2'),
 								y3 = g.attr('y3');
             g.attr({
                 'x1': Math.ceil(x1),
                 'x2': Math.ceil(x2),
+								'x3': Math.ceil(x3),
                 'y1': Math.ceil(y1),
                 'y2': Math.ceil(y2),
 								'y3': Math.ceil(y3)
@@ -1873,7 +1875,7 @@ c3_chart_internal_fn.getTranslate = function (target) {
         x = config.axis_rotated ? 0 : $$.width;
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'y3') {
-        x = config.axis_rotated ? 0 : ($$.width + 100);
+        x = config.axis_rotated ? 0 : $$.width;
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'subx') {
         x = 0;
@@ -3955,7 +3957,7 @@ c3_chart_internal_fn.generateFlow = function (args) {
             // draw again for removing flowed elements and reverting attr
             xgrid.attr('transform', null).attr($$.xgridAttr);
             xgridLines.attr('transform', null);
-            xgridLines.select('line').attr("x1", config.axis_rotated ? 0 : xv).attr("x2", config.axis_rotated ? $$.width : xv);
+            xgridLines.select('line').attr("x1", config.axis_rotated ? 0 : xv).attr("x2", config.axis_rotated ? $$.width : xv).attr("x3", config.axis_rotated ? $$.width : xv);
             xgridLines.select('text').attr("x", config.axis_rotated ? $$.width : 0).attr("y", xv);
             mainBar.attr('transform', null).attr("d", drawBar);
             mainLine.attr('transform', null).attr("d", drawLine);
@@ -6852,7 +6854,7 @@ c3_chart_internal_fn.updateGrid = function (duration) {
     ygridLine.append('text').attr("text-anchor", $$.gridTextAnchor).attr("transform", config.axis_rotated ? "rotate(-90)" : "").attr('dx', $$.gridTextDx).attr('dy', -5).style("opacity", 0);
     // update
     yv = $$.yv.bind($$);
-    $$.ygridLines.select('line').transition().duration(duration).attr("x1", config.axis_rotated ? yv : 0).attr("x2", config.axis_rotated ? yv : $$.width).attr("y1", config.axis_rotated ? 0 : yv).attr("y2", config.axis_rotated ? $$.height : yv).attr("y3", config.axis_rotated ? $$.height : yv).style("opacity", 1);
+    $$.ygridLines.select('line').transition().duration(duration).attr("x1", config.axis_rotated ? yv : 0).attr("x2", config.axis_rotated ? yv : $$.width).attr("x3", config.axis_rotated ? yv : $$.width).attr("y1", config.axis_rotated ? 0 : yv).attr("y2", config.axis_rotated ? $$.height : yv).attr("y3", config.axis_rotated ? $$.height : yv).style("opacity", 1);
     $$.ygridLines.select('text').transition().duration(duration).attr("x", config.axis_rotated ? $$.xGridTextX.bind($$) : $$.yGridTextX.bind($$)).attr("y", yv).text(function (d) {
         return d.text;
     }).style("opacity", 1);
@@ -7427,7 +7429,7 @@ c3_chart_internal_fn.clearLegendItemTextBoxCache = function () {
 c3_chart_internal_fn.updateLegend = function (targetIds, options, transitions) {
     var $$ = this,
         config = $$.config;
-    var xForLegend, xForLegendText, xForLegendRect, yForLegend, yForLegendText, yForLegendRect, x1ForLegendTile, x2ForLegendTile, yForLegendTile;
+    var xForLegend, xForLegendText, xForLegendRect, yForLegend, yForLegendText, yForLegendRect, x1ForLegendTile, x2ForLegendTile, x3ForLegendTile, yForLegendTile;
     var paddingTop = 4,
         paddingRight = 10,
         maxWidth = 0,
@@ -7578,6 +7580,9 @@ c3_chart_internal_fn.updateLegend = function (targetIds, options, transitions) {
     x2ForLegendTile = function x2ForLegendTile(id, i) {
         return xForLegend(id, i) - 2 + config.legend_item_tile_width;
     };
+		x3ForLegendTile = function x3ForLegendTile(id, i) {
+        return xForLegend(id, i) - 2 + config.legend_item_tile_width;
+    };
     yForLegendTile = function yForLegendTile(id, i) {
         return yForLegend(id, i) + 4;
     };
@@ -7622,7 +7627,7 @@ c3_chart_internal_fn.updateLegend = function (targetIds, options, transitions) {
         updatePositions(this, id, i);
     }).style("pointer-events", "none").attr('x', $$.isLegendRight || $$.isLegendInset ? xForLegendText : -200).attr('y', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendText);
     l.append('rect').attr("class", CLASS.legendItemEvent).style('fill-opacity', 0).attr('x', $$.isLegendRight || $$.isLegendInset ? xForLegendRect : -200).attr('y', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendRect);
-    l.append('line').attr('class', CLASS.legendItemTile).style('stroke', $$.color).style("pointer-events", "none").attr('x1', $$.isLegendRight || $$.isLegendInset ? x1ForLegendTile : -200).attr('y1', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('x2', $$.isLegendRight || $$.isLegendInset ? x2ForLegendTile : -200).attr('y2', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('y3', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('stroke-width', config.legend_item_tile_height);
+    l.append('line').attr('class', CLASS.legendItemTile).style('stroke', $$.color).style("pointer-events", "none").attr('x1', $$.isLegendRight || $$.isLegendInset ? x1ForLegendTile : -200).attr('y1', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('x2', $$.isLegendRight || $$.isLegendInset ? x2ForLegendTile : -200).attr('x3', $$.isLegendRight || $$.isLegendInset ? x3ForLegendTile : -200).attr('y2', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('y3', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile).attr('stroke-width', config.legend_item_tile_height);
 
     // Set background for inset legend
     background = $$.legend.select('.' + CLASS.legendBackground + ' rect');
@@ -7646,7 +7651,7 @@ c3_chart_internal_fn.updateLegend = function (targetIds, options, transitions) {
     }).attr('x', xForLegendRect).attr('y', yForLegendRect);
 
     tiles = $$.legend.selectAll('line.' + CLASS.legendItemTile).data(targetIds);
-    (withTransition ? tiles.transition() : tiles).style('stroke', $$.color).attr('x1', x1ForLegendTile).attr('y1', yForLegendTile).attr('x2', x2ForLegendTile).attr('y2', yForLegendTile).attr('y3', yForLegendTile);
+    (withTransition ? tiles.transition() : tiles).style('stroke', $$.color).attr('x1', x1ForLegendTile).attr('y1', yForLegendTile).attr('x2', x2ForLegendTile).attr('x3', x3ForLegendTile).attr('y2', yForLegendTile).attr('y3', yForLegendTile);
 
     if (background) {
         (withTransition ? background.transition() : background).attr('height', $$.getLegendHeight() - 12).attr('width', maxWidth * (step + 1) + 10);
