@@ -8623,10 +8623,10 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         return config.padding_right + 1; // 1 is needed not to hide tick line
     } else if (config.axis_rotated) {
         return defaultPadding + legendWidthOnRight;
-    } else if (!config.axis_y2_show || config.axis_y2_inner) {
+    } else if ((!config.axis_y2_show && !config.axis_y3_show) || config.axis_y2_inner) {
         // && !config.axis_rotated
         return 2 + legendWidthOnRight + ($$.axis.getY2AxisLabelPosition().isOuter ? 20 : 0);
-    } else if (!config.axis_y3_show || config.axis_y3_inner) {
+    } else if ((!config.axis_y2_show && !config.axis_y3_show) || config.axis_y3_inner) {
         // && !config.axis_rotated
         return 2 + legendWidthOnRight + ($$.axis.getY3AxisLabelPosition().isOuter ? 20 : 0);
     } else {
