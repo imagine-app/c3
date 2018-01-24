@@ -1855,7 +1855,8 @@ c3_chart_internal_fn.getTranslate = function (target) {
     var $$ = this,
         config = $$.config,
         x,
-        y;
+        y,
+				add_axis_y2_lenght;
     if (target === 'main') {
         x = asHalfPixel($$.margin.left);
         y = asHalfPixel($$.margin.top);
@@ -1875,7 +1876,11 @@ c3_chart_internal_fn.getTranslate = function (target) {
         x = config.axis_rotated ? 0 : $$.width;
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'y3') {
-        x = config.axis_rotated ? 0 : $$.width;
+				add_axis_y2_lenght = 0;
+				if(config.axis_y2_show) {
+					add_axis_y2_lenght = 100;
+				}
+        x = config.axis_rotated ? 0 : ($$.width + add_axis_y2_lenght);
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'subx') {
         x = 0;
@@ -8630,7 +8635,7 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         // && !config.axis_rotated
         return 2 + legendWidthOnRight + ($$.axis.getY3AxisLabelPosition().isOuter ? 20 : 0);
     } else {
-        return ceil10($$.getAxisWidthByAxisId('y2')) + legendWidthOnRight;
+        return ceil10($$.getAxisWidthByAxisId('y3')) + legendWidthOnRight;
     }
 };
 
