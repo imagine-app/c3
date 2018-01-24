@@ -469,7 +469,7 @@ c3_axis_internal_fn.generateAxis = function () {
                         lineUpdate.attr("x1", tickX).attr("x2", tickX).attr("y2", function (d, i) {
                             return internal.lineY2(d, i);
                         });
-												lineUpdate.attr("x1", tickX).attr("x3", tickX).attr("y3", function (d, i) {
+												lineUpdate.attr("x2", tickX).attr("x3", tickX).attr("y3", function (d, i) {
                             return internal.lineY3(d, i);
                         });
                         textUpdate.attr("x", 0).attr("y", function (d, i) {
@@ -502,7 +502,7 @@ c3_axis_internal_fn.generateAxis = function () {
                     {
                         tickTransform = internal.axisY;
                         lineUpdate.attr("x2", -internal.innerTickSize).attr("y1", tickY).attr("y2", tickY);
-												lineUpdate.attr("x3", -internal.innerTickSize).attr("y1", tickY).attr("y3", tickY);
+												lineUpdate.attr("x3", -internal.innerTickSize).attr("y2", tickY).attr("y3", tickY);
                         textUpdate.attr("x", -internal.tickLength).attr("y", internal.tickOffset).style("text-anchor", "end");
                         tspanUpdate.attr('x', -internal.tickLength).attr("dy", function (d, i) {
                             return internal.tspanDy(d, i);
