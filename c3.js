@@ -1969,7 +1969,7 @@ c3_chart_internal_fn.transformMain = function (withTransition, transitions) {
     xAxis.attr("transform", $$.getTranslate('x'));
     yAxis.attr("transform", $$.getTranslate('y'));
     y2Axis.attr("transform", $$.getTranslate('y2'));
-		//y3Axis.attr("transform", $$.getTranslate('y3'));
+		y3Axis.attr("transform", $$.getTranslate('y3'));
     $$.main.select('.' + CLASS.chartArcs).attr("transform", $$.getTranslate('arc'));
 };
 c3_chart_internal_fn.transformAll = function (withTransition, transitions) {
@@ -2452,6 +2452,11 @@ if (!Function.prototype.bind) {
             }, set: function set(y2) {
                 this._y2 = y2;this._segmentChanged();
             }, enumerable: true });
+				Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "x3", { get: function get() {
+		             return this._x3;
+		        }, set: function set(x3) {
+		             this._x3 = x3;this._segmentChanged();
+		        }, enumerable: true });
 				Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "y3", { get: function get() {
 		            return this._y3;
 		        }, set: function set(y3) {
