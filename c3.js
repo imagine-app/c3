@@ -1873,7 +1873,7 @@ c3_chart_internal_fn.getTranslate = function (target) {
         x = config.axis_rotated ? 0 : $$.width;
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'y3') {
-        x = config.axis_rotated ? 0 : $$.width;
+        x = config.axis_rotated ? 0 : ($$.width + 100);
         y = config.axis_rotated ? 1 : 0;
     } else if (target === 'subx') {
         x = 0;
