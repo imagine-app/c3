@@ -1421,7 +1421,7 @@ c3_chart_internal_fn.smoothLines = function (el, type) {
                 x1 = g.attr('x1'),
                 x2 = g.attr('x2'),
                 y1 = g.attr('y1'),
-                y2 = g.attr('y2');
+                y2 = g.attr('y2'),
 								y3 = g.attr('y3');
             g.attr({
                 'x1': Math.ceil(x1),
@@ -6790,7 +6790,7 @@ c3_chart_internal_fn.updateYGrid = function () {
         gridValues = $$.yAxis.tickValues() || $$.y.ticks(config.grid_y_ticks);
     $$.ygrid = $$.main.select('.' + CLASS.ygrids).selectAll('.' + CLASS.ygrid).data(gridValues);
     $$.ygrid.enter().append('line').attr('class', CLASS.ygrid);
-    $$.ygrid.attr("x1", config.axis_rotated ? $$.y : 0).attr("x2", config.axis_rotated ? $$.y : $$.width).attr("y1", config.axis_rotated ? 0 : $$.y).attr("y2", config.axis_rotated ? $$.height : $$.y).attr("y3", config.axis_rotated ? $$.height : $$.y);
+    $$.ygrid.attr("x1", config.axis_rotated ? $$.y : 0).attr("x2", config.axis_rotated ? $$.y : $$.width).attr("x3", config.axis_rotated ? $$.y : $$.width).attr("y1", config.axis_rotated ? 0 : $$.y).attr("y2", config.axis_rotated ? $$.height : $$.y).attr("y3", config.axis_rotated ? $$.height : $$.y);
     $$.ygrid.exit().remove();
     $$.smoothLines($$.ygrid, 'grid');
 };
@@ -6888,7 +6888,7 @@ c3_chart_internal_fn.hideXGridFocus = function () {
 c3_chart_internal_fn.updateXgridFocus = function () {
     var $$ = this,
         config = $$.config;
-    $$.main.select('line.' + CLASS.xgridFocus).attr("x1", config.axis_rotated ? 0 : -10).attr("x2", config.axis_rotated ? $$.width : -10).attr("y1", config.axis_rotated ? -10 : 0).attr("y2", config.axis_rotated ? -10 : $$.height);
+    $$.main.select('line.' + CLASS.xgridFocus).attr("x1", config.axis_rotated ? 0 : -10).attr("x2", config.axis_rotated ? $$.width : -10).attr("x3", config.axis_rotated ? $$.width : -10).attr("y1", config.axis_rotated ? -10 : 0).attr("y2", config.axis_rotated ? -10 : $$.height).attr("y3", config.axis_rotated ? -10 : $$.height);
 };
 c3_chart_internal_fn.generateGridData = function (type, scale) {
     var $$ = this,
