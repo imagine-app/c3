@@ -1878,7 +1878,7 @@ c3_chart_internal_fn.getTranslate = function (target) {
     } else if (target === 'y3') {
 				add_axis_y2_lenght = 0;
 				if(config.axis_y2_show) {
-					add_axis_y2_lenght = 100;
+					add_axis_y2_lenght = 40;
 				}
         x = config.axis_rotated ? 0 : ($$.width + add_axis_y2_lenght);
         y = config.axis_rotated ? 1 : 0;
@@ -8683,11 +8683,7 @@ c3_chart_internal_fn.getSvgLeft = function (withoutRecompute) {
 c3_chart_internal_fn.getAxisWidthByAxisId = function (id, withoutRecompute) {
     var $$ = this,
         position = $$.axis.getLabelPositionById(id);
-			if($$.config.axis_y2_show && $$.config.axis_y3_show) {
-				return $$.axis.getMaxTickWidth(id, withoutRecompute) + (position.isInner ? 40 : 60);
-			}else {
 				return $$.axis.getMaxTickWidth(id, withoutRecompute) + (position.isInner ? 20 : 40);
-			}
 };
 c3_chart_internal_fn.getHorizontalAxisHeight = function (axisId) {
     var $$ = this,
