@@ -8624,7 +8624,7 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         config = $$.config,
         defaultPadding = 10,
         legendWidthOnRight = $$.isLegendRight ? $$.getLegendWidth() + 20 : 0,
-				resize_y3 = config.axis_y3_show ? 20 : 0;
+				resize_y3 = config.axis_y3_show ? 40 : 0;
     if (isValue(config.padding_right)) {
         return config.padding_right + 1; // 1 is needed not to hide tick line
     } else if (config.axis_rotated) {
