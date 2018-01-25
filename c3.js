@@ -7070,7 +7070,7 @@ c3_chart_internal_fn.updateEventRect = function (eventRectUpdate) {
         }
         x = config.axis_rotated ? 0 : rectX;
         y = config.axis_rotated ? rectX : 0;
-        w = config.axis_rotated ? $$.width : rectW;
+        w = config.axis_rotated ? ($$.width - 100) : rectW;
         h = config.axis_rotated ? rectW : $$.height;
     }
 
