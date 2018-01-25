@@ -6420,7 +6420,8 @@ c3_chart_internal_fn.getYDomain = function (targets, axisId, xDomain) {
     }
     // add padding for data label
     if (showHorizontalDataLabel) {
-        lengths = $$.getDataLabelLength(yDomainMin, yDomainMax, 'width');
+
+        lengths = $$.config.axis_y3_show && $$.config.axis_y2_show ? $$.getDataLabelLength(yDomainMin, yDomainMax, 'width') - 20 : $$.getDataLabelLength(yDomainMin, yDomainMax, 'width');
         diff = diffDomain($$.y.range());
         ratio = [lengths[0] / diff, lengths[1] / diff];
         padding_top += domainLength * (ratio[1] / (1 - ratio[0] - ratio[1]));
