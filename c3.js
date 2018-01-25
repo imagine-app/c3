@@ -6421,7 +6421,7 @@ c3_chart_internal_fn.getYDomain = function (targets, axisId, xDomain) {
     // add padding for data label
     if (showHorizontalDataLabel) {
 
-        lengths = $$.config.axis_y3_show && $$.config.axis_y2_show ? $$.getDataLabelLength(yDomainMin, yDomainMax, 'width') - 20 : $$.getDataLabelLength(yDomainMin, yDomainMax, 'width');
+        lengths = $$.getDataLabelLength(yDomainMin, yDomainMax, 'width');
         diff = diffDomain($$.y.range());
         ratio = [lengths[0] / diff, lengths[1] / diff];
         padding_top += domainLength * (ratio[1] / (1 - ratio[0] - ratio[1]));
@@ -8625,7 +8625,7 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         config = $$.config,
         defaultPadding = 10,
         legendWidthOnRight = $$.isLegendRight ? $$.getLegendWidth() + 20 : 0,
-				resize_y3 = config.axis_y3_show ? 40 : 0;
+				resize_y3 = config.axis_y3_show && config.axis_y2_show ? 40 : 0;
     if (isValue(config.padding_right)) {
         return config.padding_right + 1; // 1 is needed not to hide tick line
     } else if (config.axis_rotated) {
