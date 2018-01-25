@@ -8637,7 +8637,7 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         // && !config.axis_rotated
         return 2 + legendWidthOnRight + ($$.axis.getY3AxisLabelPosition().isOuter ? 20 : 0);
     } else {
-        return ceil10($$.getAxisWidthByAxisId('y3')) + legendWidthOnRight + resize_y3;
+        return ceil10($$.getAxisWidthByAxisId('y3')) + legendWidthOnRight; //+ resize_y3;
     }
 };
 
