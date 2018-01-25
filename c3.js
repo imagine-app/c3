@@ -8660,7 +8660,7 @@ c3_chart_internal_fn.getParentRectValue = function (key) {
     return v;
 };
 c3_chart_internal_fn.getParentWidth = function () {
-    return this.getParentRectValue('width');
+    return this.config.axis_y3_show ? this.getParentRectValue('width') - 100 : this.getParentRectValue('width');
 };
 c3_chart_internal_fn.getParentHeight = function () {
     var h = this.selectChart.style('height');
@@ -8683,7 +8683,7 @@ c3_chart_internal_fn.getSvgLeft = function (withoutRecompute) {
 c3_chart_internal_fn.getAxisWidthByAxisId = function (id, withoutRecompute) {
     var $$ = this,
         position = $$.axis.getLabelPositionById(id);
-				return $$.axis.getMaxTickWidth(id, withoutRecompute) + (position.isInner ? 20 : 40);
+		return $$.axis.getMaxTickWidth(id, withoutRecompute) + (position.isInner ? 20 : 40);
 };
 c3_chart_internal_fn.getHorizontalAxisHeight = function (axisId) {
     var $$ = this,
