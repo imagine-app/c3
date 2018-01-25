@@ -1992,14 +1992,13 @@ c3_chart_internal_fn.transformAll = function (withTransition, transitions) {
 
 c3_chart_internal_fn.updateSvgSize = function () {
     var $$ = this,
-        brush = $$.svg.select(".c3-brush .background"), rezise_y3;
-		resize_y3 = $$.config.axis_y3_show ? 100 : 0;
+        brush = $$.svg.select(".c3-brush .background");
     $$.svg.attr('width', $$.currentWidth).attr('height', $$.currentHeight);
-    $$.svg.selectAll(['#' + $$.clipId, '#' + $$.clipIdForGrid]).select('rect').attr('width', $$.width - resize_y3).attr('height', $$.height);
+    $$.svg.selectAll(['#' + $$.clipId, '#' + $$.clipIdForGrid]).select('rect').attr('width', $$.width).attr('height', $$.height);
     $$.svg.select('#' + $$.clipIdForXAxis).select('rect').attr('x', $$.getXAxisClipX.bind($$)).attr('y', $$.getXAxisClipY.bind($$)).attr('width', $$.getXAxisClipWidth.bind($$)).attr('height', $$.getXAxisClipHeight.bind($$));
     $$.svg.select('#' + $$.clipIdForYAxis).select('rect').attr('x', $$.getYAxisClipX.bind($$)).attr('y', $$.getYAxisClipY.bind($$)).attr('width', $$.getYAxisClipWidth.bind($$)).attr('height', $$.getYAxisClipHeight.bind($$));
     $$.svg.select('#' + $$.clipIdForSubchart).select('rect').attr('width', $$.width).attr('height', brush.size() ? brush.attr('height') : 0);
-    $$.svg.select('.' + CLASS.zoomRect).attr('width', $$.width - resize_y3).attr('height', $$.height);
+    $$.svg.select('.' + CLASS.zoomRect).attr('width', $$.width).attr('height', $$.height);
     // MEMO: parent div's height will be bigger than svg when <!DOCTYPE html>
     $$.selectChart.style('max-height', $$.currentHeight + "px");
 };
