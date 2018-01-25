@@ -8660,7 +8660,7 @@ c3_chart_internal_fn.getParentRectValue = function (key) {
     return v;
 };
 c3_chart_internal_fn.getParentWidth = function () {
-    return this.config.axis_y3_show ? this.getParentRectValue('width') - 100 : this.getParentRectValue('width');
+    return this.getParentRectValue('width');
 };
 c3_chart_internal_fn.getParentHeight = function () {
     var h = this.selectChart.style('height');
