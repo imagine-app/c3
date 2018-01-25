@@ -7070,7 +7070,7 @@ c3_chart_internal_fn.updateEventRect = function (eventRectUpdate) {
         }
         x = config.axis_rotated ? 0 : rectX;
         y = config.axis_rotated ? rectX : 0;
-        w = config.axis_rotated ? ($$.width - 100) : rectW;
+        w = config.axis_rotated ? $$.width : rectW;
         h = config.axis_rotated ? rectW : $$.height;
     }
 
@@ -8623,7 +8623,8 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
     var $$ = this,
         config = $$.config,
         defaultPadding = 10,
-        legendWidthOnRight = $$.isLegendRight ? $$.getLegendWidth() + 20 : 0;
+        legendWidthOnRight = $$.isLegendRight ? $$.getLegendWidth() + 20 : 0,
+				resize_y3 = config.axis_y3_show ? 20 : 0;
     if (isValue(config.padding_right)) {
         return config.padding_right + 1; // 1 is needed not to hide tick line
     } else if (config.axis_rotated) {
@@ -8635,7 +8636,7 @@ c3_chart_internal_fn.getCurrentPaddingRight = function () {
         // && !config.axis_rotated
         return 2 + legendWidthOnRight + ($$.axis.getY3AxisLabelPosition().isOuter ? 20 : 0);
     } else {
-        return ceil10($$.getAxisWidthByAxisId('y3')) + legendWidthOnRight;
+        return ceil10($$.getAxisWidthByAxisId('y3')) + legendWidthOnRight + resize_y3;
     }
 };
 
