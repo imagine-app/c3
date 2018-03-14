@@ -1845,11 +1845,11 @@
             x = config.axis_rotated ? 0 : $$.width;
             y = config.axis_rotated ? 1 : 0;
         } else if (target === 'y3') {
-            add_axis_y2_lenght = 0;
+            add_axis_y2_length = 0;
             if (config.axis_y2_show && config.axis_y3_show) {
-                add_axis_y2_lenght = 40;
+                add_axis_y2_length = 40;
             }
-            x = config.axis_rotated ? 0 : ($$.width + add_axis_y2_lenght);
+            x = config.axis_rotated ? 0 : ($$.width + add_axis_y2_length);
             y = config.axis_rotated ? 1 : 0;
         } else if (target === 'subx') {
             x = 0;
