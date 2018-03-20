@@ -9545,7 +9545,7 @@
         }
         return text + "</table>";
     };
-    c3_chart_internal_fn.tooltipPosition = function (dataToShow, tWidth, tHeight, element, location = null) {
+    c3_chart_internal_fn.tooltipPosition = function (dataToShow, tWidth, tHeight, element, location) {
         var $$ = this,
             config = $$.config,
             d3 = $$.d3;
