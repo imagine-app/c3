@@ -9585,6 +9585,7 @@
         }
         return {top: tooltipTop, left: tooltipLeft};
     };
+
     c3_chart_internal_fn.showTooltip = function (selectedData, element, location) {
         var $$ = this,
             config = $$.config;
